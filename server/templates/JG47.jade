@@ -1,0 +1,38 @@
+﻿doctype html
+html
+  head
+    meta(content='text/html', charset='utf-8')
+    title 中华人民共和国广州海关旅客行李、个人邮递物品进口税款缴纳证
+    style
+      include ./JG47.css
+
+  body
+    .page-header
+      span JG47
+      span(style="float:right") 海关编号
+    .title
+      h1 中华人民共和国广州海关
+      h1 旅客行李、个人邮递物品进口税款缴纳证
+    .table-left
+      span 收款联：收款盖章后退海关作税收会计凭证
+    .table-main
+      span 纳税人姓名（地址）
+      table
+        thead
+          tr
+            th.no 序号
+            th.name 品名和规格
+            th.amount 数量
+            th.price 完税价格
+            th.percentage 税率%
+            th.total 进口税金额
+        tbody
+          - for (var i=0;i<7;i++)
+            tr
+              - for(var j=0;j<6;j++)
+                td
+          tr
+            td.footer(colspan="6") 进口税合计：人民币（大写）&nbsp;&nbsp;元
+    .page-footer
+      span 日&nbsp;期
+      span(style="float:right") 关员代号：

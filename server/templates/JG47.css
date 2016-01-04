@@ -1,0 +1,72 @@
+body {
+  font-family: 'SimSun', Tahoma;
+  font-size: 12px;
+}
+.page-header {
+  font-size: 11px;
+  margin: 0 20px;
+}
+.page-footer {
+  margin: 0 20px;
+}
+.title {
+  text-align: center;
+  margin-top: 30px;
+}
+.title h1 {
+  font-family: 'SimHei', 'Microsoft YaHei', Arial;
+  font-size: 18px;
+  margin: 5px;
+}
+.table-left {
+  float: left;
+  width: 15px;
+  font-size: 13px;
+  margin-top: 20px;
+  writing-mode: vertical-rl;
+  -webkit-writing-mode: vertical-rl;
+}
+.table-main {
+  margin-left: 15px;
+  padding-left: 5px;
+  padding-right: 10px;
+}
+.table-main table,
+.table-main tr,
+.table-main td,
+.table-main th {
+  border: 1px solid #000;
+  table-layout: fixed;
+}
+.table-main table {
+  margin: 5px 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+.table-main table .no {
+  width: 8%;
+}
+.table-main table .name {
+  width: 45%;
+  letter-spacing: 1em;
+}
+.table-main table .amount {
+  width: 15%;
+}
+.table-main table .price {
+  width: 10%;
+}
+.table-main table .percentage {
+  width: 8%;
+}
+.table-main table th {
+  height: 30px;
+  text-align: center;
+}
+.table-main table td {
+  height: 23px;
+}
+.table-main table td.footer {
+  height: 40px;
+  padding-left: 10px;
+}

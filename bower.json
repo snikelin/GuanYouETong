@@ -1,0 +1,22 @@
+{
+  "name": "GuanYouETong",
+  "description": "",
+  "main": "index.js",
+  "authors": [
+    "Beeven Yip <beeven@hotmail.com>"
+  ],
+  "license": "ISC",
+  "moduleType": [
+    "es6",
+    "node"
+  ],
+  "homepage": "",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
