@@ -2,17 +2,8 @@
 
 var gulp = require('gulp');
 var stylus = require("gulp-stylus");
-var gls = require("gulp-live-server");
-var testServer = require('karma').Server;
-var mocha = require("gulp-mocha");
-var bower = require("gulp-bower");
-var html2js = require("gulp-ng-html2js");
-var concat = require('gulp-concat-util');
-var minifyHtml = require("gulp-minify-html");
-var uglify = require("gulp-uglify");
-var encrypt = require("gulp-openssl-encrypt");
-var rename = require("gulp-rename");
-var prompt = require("gulp-prompt");
+//var rename = require("gulp-rename");
+//var bower = require("gulp-bower");
 
 var paths = {
   stylus: ['app/css/**/*.styl'],
@@ -23,38 +14,15 @@ var paths = {
 gulp.task('default', ['stylus','html2js']);
 
 gulp.task('stylus', function(done) {
-  gulp.src('app/css/app.styl')
+  gulp.src('server/templates/JG47.styl')
     .pipe(stylus({
-      //compress: true
+       url: {name:'url', limit: false}
     }))
-    .pipe(gulp.dest('app/css/'))
+    .pipe(gulp.dest('server/templates/'))
     .on('end', done);
 });
 
-gulp.task('html2js',function(done){
-    gulp.src(paths.templates)
-        .pipe(minifyHtml({
-            empty: true,
-            spare: true,
-            quotes: true
-        }))
-        .pipe(html2js({
-            moduleName: 'etgApp.templates',
-            prefix: 'components/',
-            declareModule: false,
-            template: // change from template.prettyEscapedContent to template.escapedContent in Prodcution environment
-                "$templateCache.put('<%= template.url %>',\n    '<%= template.escapedContent %>');\n"
-        }))
-        .pipe(concat("templates.js"))
-        .pipe(concat.header(
-            "define(['angular'],function(angular){'use strict';\n " +
-            "return angular.module('etgApp.templates',[]).run(['$templateCache', function($templateCache) {\n"
-        ))
-        .pipe(concat.footer("\t}]);\n});"))
-        .pipe(uglify())
-        .pipe(gulp.dest("app/"))
-        .on('end',done);
-});
+
 
 
 gulp.task("bower", function(){

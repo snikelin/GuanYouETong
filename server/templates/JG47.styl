@@ -4,7 +4,7 @@ body
 
 .page-header
   font-size 11px
-  margin 0 20px
+  margin 10px 20px
 .page-footer
   margin 0 20px
 
@@ -12,7 +12,7 @@ body
   text-align center
   margin-top 30px
   h1
-    font-family 'SimHei','Microsoft YaHei', Arial
+    font-family "Arial Black"
     font-size 18px
     margin 5px
 
@@ -34,23 +34,39 @@ body
     margin 5px 0
     border-collapse collapse
     width 100%
-    .no
+    background-image url("./background.png")
+    background-repeat no-repeat
+    background-position center
+    th.no
       width 8%
-    .name
+    th.name
       width 45%
       letter-spacing 1em
-    .amount
+    th.amount
       width 15%
-    .price
+    th.price
       width 10%
-    .percentage
+    th.percentage
       width 8%
     th
       height 30px
       text-align: center
     td
       height 23px
+      vertical-align middle
+      text-align center
+    td.name
+      text-align left
 
     td.footer
       height 40px
       padding-left 10px
+      text-align left
+
+.stamp
+  position absolute
+  width 218px
+  height 212px
+  top 200px
+  right 30px
+  background-image url("./stamp.png")

@@ -11,12 +11,16 @@ var phantom = require("phantom"),
 
 temp.track();
 
-// TODO: render stylus in-time
+
+
+
+
+
 var compile = jade.compileFile(path.join(__dirname,"templates","JG47.jade"),{pretty: true,cache: true});
 
 var paperSize = {
-    width: '18cm',
-    height: '12cm',
+    width: '22cm',
+    height: '15cm',
     margin: {
         top: '0mm',
         bottom: '10mm',
@@ -25,10 +29,15 @@ var paperSize = {
     }
 };
 
+var viewportSize = {
+    width: 1024,
+    height: 768
+};
+
 var session;
 var createPhantomSession = function(){
     if(session) {
-        return new Promise.resolve(session);
+        return Promise.resolve(session);
     }
     return new Promise(function(resolve,reject){
         phantom.create({},function(_session){
@@ -60,6 +69,7 @@ var renderPdf = function(content) {
                 session.createPage(function(_page){
                     page = _page;
                     page.set('paperSize',paperSize);
+                    page.set('viewportSize',viewportSize);
                     page.setContent(content,null);
                     page.render(fileInfo.path,function(){
                         page.close();
@@ -93,6 +103,11 @@ PDFGenerator.getPDF = function(contents){
     var html = compile(contents);
     //console.log(html);
     return renderPdf(html);
+};
+
+PDFGenerator.getHtml = function(contents) {
+    var html = compile(contents);
+    return Promise.resolve(html);
 };
 
 

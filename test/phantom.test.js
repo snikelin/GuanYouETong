@@ -1,6 +1,13 @@
 /**
  * Created by beeven on 1/4/2016.
  */
+var system = require("system"),
+    fs = require("fs");
+
+var scriptUrl = system.args[0];
+var absScriptUrl = fs.absolute(scriptUrl);
+var absDirectory = absScriptUrl.substring(0,absScriptUrl.lastIndexOf('/'));
+var templateUrl = "file:///" + absDirectory + "/../server/templates/JG47.html";
 
 var page = require("webpage").create();
 page.paperSize = {
@@ -19,10 +26,11 @@ page.paperSize = {
         right: '10mm'
     }
 };
-page.open("file:///d:/dev/GuanYouETong/server/templates/JG47.html",function(status){
+
+page.open(templateUrl,function(status){
     console.log("Status:" + status);
     if(status==="success") {
-        page.render("d:/dev/GuanYouETong/server/templates/JG47.pdf");
+        page.render(absDirectory + "/../server/templates/JG47.pdf");
         page.close();
     }
         phantom.exit();
