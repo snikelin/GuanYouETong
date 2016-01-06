@@ -8,7 +8,7 @@ var url = "http://172.7.1.243:3000/GuanYouETong/WebService/QueryPersonalDutyWcf.
 const units = ["", "拾", "佰", "仟", "万", "拾", "佰", "仟", "亿"];
 const mapChars = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
 
-exports.chineseUppercase = function chineseUppercase(num) {
+function chineseUppercase(num) {
     if(num <= 0) {
         return null;
     }
@@ -70,3 +70,5 @@ exports.query = function (entryNo, dutyId) {
         });
     });
 };
+
+exports.chineseUppercase = chineseUppercase;

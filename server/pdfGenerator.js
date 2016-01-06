@@ -22,7 +22,7 @@ var paperSize = {
     width: '22cm',
     height: '15cm',
     margin: {
-        top: '0mm',
+        top: '10mm',
         bottom: '10mm',
         left: '10mm',
         right: '10mm'

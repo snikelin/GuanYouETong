@@ -34,11 +34,11 @@ html
               td.name #{item.GName}
               td #{item.GQty}
               td #{item.TradeTotal}
-              td #{item.PostRate*100}%
+              td #{item.PostRate ? item.PostRate*100 + '%': ''}
               td #{item.PostValue}
           tr
-            td.footer(colspan="6") 进口税合计：人民币（大写）#{PostValueFact} 元
+            td.footer(colspan="6") 进口税合计：人民币（大写）#{PostValueFact} 
     .page-footer
-      span 日&nbsp;期 #{CreateDate}
+      span 日期 #{CreateDate}
       span(style="float:right") 关员代号：#{Creater}
     .stamp

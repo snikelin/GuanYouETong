@@ -17,7 +17,9 @@ app.get("/pdf/:entryNo/:dutyId", function (req, res) {
         })
         .then(function(fileUrl){
             res.sendFile(fileUrl,function(err){
-                throw err;
+		if(err) {
+                    console.error(err);
+}
             })
         })
         .catch(function(err){
@@ -31,10 +33,13 @@ app.get("/pdf", function (req, res) {
         })
         .then(function(fileUrl){
             res.sendFile(fileUrl,function(err){
-                throw err;
+		if(err) {
+                    console.error(err);
+		}
             })
         })
         .catch(function(err){
+	    console.log(err);
             res.status(500).json(err);
         });
 });
