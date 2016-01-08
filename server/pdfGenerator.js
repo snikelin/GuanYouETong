@@ -9,14 +9,9 @@ var phantom = require("phantom"),
     fs = require("fs"),
     temp = require("temp");
 
-temp.track();
 
 
-
-
-
-
-var compile = jade.compileFile(path.join(__dirname,"templates","JG47.jade"),{pretty: true,cache: true});
+var compile = jade.compileFile(path.join(__dirname, "templates", "JG47.jade"), {pretty: true, cache: true});
 
 var paperSize = {
     width: '22cm',
@@ -35,59 +30,62 @@ var viewportSize = {
 };
 
 var session;
-var createPhantomSession = function(){
-    if(session) {
+var createPhantomSession = function () {
+    if (session) {
         return Promise.resolve(session);
     }
-    return new Promise(function(resolve,reject){
-        phantom.create({},function(_session){
+    return new Promise(function (resolve, reject) {
+        phantom.create({}, function (_session) {
             session = _session;
             resolve(session);
         });
     });
 };
 
-process.on('exit',function(code,signal){
+process.on('exit', function (code, signal) {
     console.log("cleaning up phantom");
-    if(session){
+    if (session) {
         session.exit();
     }
 });
 
-var renderPdf = function(content) {
-    return new Promise(function(resolve,reject){
-        temp.open({
+var renderPdf = function (content) {
+    return new Promise(function (resolve, reject) {
+        var filename = temp.path({
             prefix: "pdfgen",
             suffix: ".pdf"
-        },function(err,fileInfo){
-            if(err) {
-                return reject(err);
-            }
-            var page;
-
-            try {
-                session.createPage(function(_page){
-                    page = _page;
-                    page.set('paperSize',paperSize);
-                    page.set('viewportSize',viewportSize);
-                    page.setContent(content,null);
-                    page.render(fileInfo.path,function(){
-                        page.close();
-                        page = null;
-                        resolve(fileInfo.path);
-                    });
-                })
-            } catch(e) {
-                try {
-                    if(page != null) {
-                        page.close();
-                    }
-                } catch(ex){
-                    return reject(ex);
-                }
-                return reject(e);
-            }
         });
+
+
+        var page;
+
+        try {
+            session.createPage(function (_page) {
+
+                page = _page;
+                page.set('paperSize', paperSize);
+                page.set('viewportSize', viewportSize);
+                page.setContent(content, null);
+                page.render(filename, function (err) {
+                    if(err) {
+                        console.log("render err:",err);
+                        return reject(err);
+                    }
+                    page.close();
+                    page = null;
+                    resolve(filename);
+                });
+            })
+        } catch (e) {
+            try {
+                if (page != null) {
+                    page.close();
+                }
+            } catch (ex) {
+                return reject(ex);
+            }
+            return reject(e);
+        }
     });
 };
 
@@ -95,17 +93,17 @@ function PDFGenerator() {
 
 }
 
-PDFGenerator.init = function(){
+PDFGenerator.init = function () {
     return createPhantomSession();
 };
 
-PDFGenerator.getPDF = function(contents){
+PDFGenerator.getPDF = function (contents) {
     var html = compile(contents);
     //console.log(html);
     return renderPdf(html);
 };
 
-PDFGenerator.getHtml = function(contents) {
+PDFGenerator.getHtml = function (contents) {
     var html = compile(contents);
     return Promise.resolve(html);
 };

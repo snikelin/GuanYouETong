@@ -5,6 +5,7 @@
 
 var generator = require("./pdfGenerator"),
     dataService = require("./dataService"),
+    stamper = require("./stamper"),
     express = require("express"),
     app = express();
 
@@ -15,14 +16,22 @@ app.get("/pdf/:entryNo/:dutyId", function (req, res) {
         .then(function (data) {
             return generator.getPDF(data);
         })
-        .then(function(fileUrl){
-            res.sendFile(fileUrl,function(err){
-		if(err) {
-                    console.error(err);
-}
-            })
+        .then(function (fileUrl) {
+            stamper.stamp(fileUrl,function(err,outfile){
+                if(!err) {
+                    res.sendFile(outfile, function (err) {
+                        if (err) {
+                            console.error(err);
+                        }
+                        fs.unlinkSync(fileUrl);
+                        fs.unlinkSync(outfile);
+                    })
+                }
+
+            });
+
         })
-        .catch(function(err){
+        .catch(function (err) {
             res.status(500).json(err);
         });
 });
@@ -31,15 +40,23 @@ app.get("/pdf", function (req, res) {
         .then(function (data) {
             return generator.getPDF(data);
         })
-        .then(function(fileUrl){
-            res.sendFile(fileUrl,function(err){
-		if(err) {
-                    console.error(err);
-		}
-            })
+        .then(function (fileUrl) {
+
+            stamper.stamp(fileUrl,function(err,outfile){
+                if(!err) {
+                    res.sendFile(outfile, function (err) {
+                        if (err) {
+                            console.error(err);
+                        }
+                        fs.unlinkSync(fileUrl);
+                        fs.unlinkSync(outfile);
+                    })
+                }
+
+            });
         })
-        .catch(function(err){
-	    console.log(err);
+        .catch(function (err) {
+            console.log(err);
             res.status(500).json(err);
         });
 });
