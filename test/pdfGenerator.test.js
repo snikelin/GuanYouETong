@@ -2,8 +2,8 @@
  * Created by beeven on 1/4/2016.
  */
 
-var generator = require("../server/pdfGenerator"),
-    stamper = require("../server/stamper"),
+var generator = require("../service/pdfGenerator"),
+    stamper = require("../service/stamper"),
     fs = require("fs");
 
 generator.init().then(function () {

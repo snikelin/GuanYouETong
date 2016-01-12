@@ -3,10 +3,63 @@
 <head>
     <meta charset="utf-8">
     <title>关邮E通</title>
+    <link rel="stylesheet" href="main.css">
     <script src="bower_components/angular/angular.min.js"></script>
     <script src="app.js"></script>
 </head>
 <body>
-    <div ng-view></div>
+    <div class="wrapper" ng-controller="MainCtrl">
+        <div class="form-view">
+            <form name="queryForm" ng-hide="shouldShowResult" ng-submit="formSubmitted()">
+                <div class="row">
+                    <label for="entryNo">邮件号</label>
+                    <input id="entryNo" type="text" ng-model="info.entryNo"/>
+                </div>
+                <div class="row"><label for="dutyId">税单号</label>
+                    <input id="dutyId" type="text" ng-model="info.dutyId"/>
+                </div>
+                <div class="row"><label for="captcha">验证码</label>
+                    <input id="captcha" type="text" ng-model="info.captcha">
+                    <img alt="captcha" ng-src="{{captcha.imgsrc}}" ng-click="GetCaptcha()">
+                    <input type="hidden" value="{{captcha.hash}}">
+                </div>
+                <div class="row">
+                    <input type="submit" value="查询">
+                </div>
+            </form>
+        </div>
+
+        <div class="table-view" ng-show="shouldShowResult">
+            <div class="table-main">
+                <table>
+                    <thead>
+                    <tr>
+                        <th class="no">序号</th>
+                        <th class="name">品名和规格</th>
+                        <th class="amount">数量</th>
+                        <th class="price">完税价格</th>
+                        <th class="percentage">税率%</th>
+                        <th class="total">进口税金额</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr ng-repeat="item in table.GListInfo">
+                        <td>{{item.GNo}}</td>
+                        <td class="name">{{item.GName}}</td>
+                        <td>{{item.GQty}}</td>
+                        <td>{{item.TradeTotal}}</td>
+                        <td>{{item.PostRate | percent}}</td>
+                        <td>{{item.PostValue}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <button class="btn return-button" ng-click="returnClicked">返回</button>
+            </div>
+
+        </div>
+
+    </div>
 </body>
 </html>

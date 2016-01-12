@@ -1,5 +1,5 @@
 
-var dataservice = require("../server/dataService");
+var dataservice = require("../service/dataService");
 var should = require("should");
 
 describe("dataService",function(){
